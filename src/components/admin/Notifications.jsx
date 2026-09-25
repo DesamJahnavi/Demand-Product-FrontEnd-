@@ -1,0 +1,6 @@
+import React from 'react';
+import { Activity, Sparkles, TrendingUp, X } from 'lucide-react';
+const items = [{ Icon: TrendingUp, title: 'Wireless Earbuds demand increased', text: 'Predicted demand is up 38% for the next 7 days.', time: '8 min ago', tone: 'purple' }, { Icon: Activity, title: 'Social momentum is rising', text: 'Positive mentions increased across Instagram and YouTube.', time: '24 min ago', tone: 'blue' }, { Icon: Sparkles, title: 'New forecast is ready', text: 'Your weekly demand forecast has been refreshed.', time: '1 hr ago', tone: 'green' }];
+export default function Notifications({ onClose }) {
+  return <div className="profile-overlay notification-overlay"><section className="notifications-popup"><button className="profile-popup-close" onClick={onClose} aria-label="Close notifications"><X /></button><span className="profile-popup-label">DEMANDIQ ALERTS</span><h2>Demand updates</h2><p>Latest changes from your demand workspace.</p><div className="notification-list">{items.map(({ Icon, title, text, time, tone }) => <div className="notification-item unread" key={title}><div className={`notification-icon ${tone}`}><Icon size={16} /></div><div><b>{title}</b><p>{text}</p><small>{time}</small></div></div>)}</div><button className="profile-popup-dismiss" onClick={onClose}>Mark all as read</button></section></div>;
+}

@@ -1,0 +1,6 @@
+import React from 'react';
+
+const icons = ['🎧', '⌚', '📱', '🔊', '✦'];
+export default function ProductTable({ products }) {
+  return <div className="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>REVIEWS</th><th>STATUS</th><th>PREDICTED DEMAND</th></tr></thead><tbody>{products.length ? products.map((product, index) => <tr key={`${product.id || product.name}-${index}`}><td><button className="table-product product-link" onClick={() => product.onSelect?.(product)}><span>{icons[index % icons.length]}</span><b>{product.name}</b></button></td><td>{product.category || 'General'}</td><td>₹{Number(product.price || 0).toLocaleString('en-IN')}</td><td>{product.reviewScore ? <div className="review-cell"><b>★ {product.reviewScore}</b><small>{product.reviewCount.toLocaleString('en-IN')} people</small><span title={product.humanReview}>Community reviews</span></div> : <span className="muted">No reviews</span>}</td><td><span className="pill high">{product.googleAiInsight ? 'Google AI: rising' : 'High interest'}</span></td><td><b>{[1150, 860, 640, 720, 980][index % 5]} units</b>{product.googleAiInsight && <small className="ai-note" title={product.googleAiInsight}>AI insight</small>}</td></tr>) : <tr><td colSpan="6" className="empty-state">No products found. Add a product to start tracking demand.</td></tr>}</tbody></table></div>;
+}

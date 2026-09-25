@@ -1,0 +1,13 @@
+import React from 'react';
+import { BadgeIndianRupee, Sparkles, Star, Users, X } from 'lucide-react';
+import { recommendationRows } from '../../data/mockData';
+
+export default function ProductProfile({ product, onClose }) {
+  if (!product) return null;
+  const reviewScore = product.reviewScore || 4.5;
+  const reviewCount = product.reviewCount || 128;
+  const humanReview = product.humanReview || 'People describe this product as dependable, practical, and good value for everyday use.';
+  const googleAiInsight = product.googleAiInsight || 'AI review: positive customer sentiment and steady interest make this a strong catalog choice.';
+  const recommendations = recommendationRows[product.name] || [];
+  return <div className="profile-overlay" role="presentation" onClick={onClose}><section className="product-profile" role="dialog" aria-modal="true" aria-labelledby="product-profile-title" onClick={event => event.stopPropagation()}><button className="profile-popup-close" onClick={onClose} aria-label="Close product profile"><X size={17} /></button><div className="product-profile-icon">⚡</div><div className="eyebrow">PRODUCT PROFILE</div><h2 id="product-profile-title">{product.name}</h2><p className="product-profile-category">{product.category || 'General'} · ₹{Number(product.price || 0).toLocaleString('en-IN')}</p><div className="review-summary"><div><Star size={18} fill="currentColor" /><strong>{reviewScore}</strong><span>out of 5</span></div><div><Users size={18} /><strong>{reviewCount.toLocaleString('en-IN')}</strong><span>people reviewed</span></div></div><div className="profile-review"><span>PEOPLE'S REVIEWS</span><p>“{humanReview}”</p></div><div className="profile-ai"><div><Sparkles size={17} /><span>AI REVIEW</span></div><p>{googleAiInsight}</p><b>AI-supported recommendation: high-demand tracking</b></div><div className="profile-recommendations"><span>BUYING RECOMMENDATIONS</span><div className="recommendation-grid">{recommendations.map(recommendation => <article className={`recommendation-card ${recommendation.tone}`} key={recommendation.type}><div className="recommendation-icon">{recommendation.tone === 'green' ? <BadgeIndianRupee size={18} /> : <Star size={18} />}</div><div className="recommendation-copy"><b>{recommendation.type}</b><strong>{recommendation.brand}</strong><small>{recommendation.product}</small><p>{recommendation.detail}</p></div><em>₹{recommendation.cost.toLocaleString('en-IN')}</em></article>)}</div></div></section></div>;
+}

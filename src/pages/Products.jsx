@@ -1,0 +1,4 @@
+import React from 'react';
+import ViewHeader from '../components/common/ViewHeader';
+import ProductTable from '../components/common/ProductTable';
+export default function Products({ filtered, search, setSearch, onAdd, onSelect }) { return <><ViewHeader eyebrow="CATALOG MANAGEMENT" title="Products" description="Track your catalog and connected demand signals." action={<button className="primary-btn" onClick={onAdd}>＋ Add Product</button>} /><section className="panel products-panel"><div className="panel-head"><div><h2>All products</h2><p>Search and review your catalog.</p></div><div className="search">⌕<input placeholder="Search products..." value={search} onChange={event => setSearch(event.target.value)} /></div></div><ProductTable products={filtered.map(product => ({ ...product, onSelect }))} /></section></>; }
